@@ -1,0 +1,40 @@
+Strings
+Files
+Arrays?
+Integers?
+
+Store type information separately?
+What about shared types and structs and stuff?
+
+Steps
+
+
+
+
+
+Plan:
+All typed data is going to be serialized to string arguments (for now)
+All executables support a clap-style interface, which defines serialization and deserialization
+(it's okay if this means we only support rust for now).
+
+Somehow this is exposed to the calling shell,
+either as a separate file,
+or maybe by passing a special "dump your signature" flag to the executable,
+or maybe by directly examining the executable somehow.
+
+
+Legacy considerations
+
+Typed executables with conventional shells:
+Type executables can also accept normal arguments (file names instead of fds, etc)
+In this case, the executable has a special little subroutine to open all those fds and then call itself again in typed mode
+
+Typed shells with conventional executables:
+Typed shells normally get the type information for an executable.
+If this is impossible (because the executable is untyped), it will simply pass it arguments as normal,
+but potentially with the ability to do plash-style remapping and whatnot
+
+Note: file descriptors are mapped to proc/fd/{file descriptor},
+so you can open a file as a file descriptor,
+and then pass the file name as a proc/fd, instead of as file names.
+
